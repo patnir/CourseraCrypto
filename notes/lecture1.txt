@@ -1,0 +1,10 @@
+Cryptographic Hash Functions: 
+security properties: collision-free, hiding, puzzle friendly
+
+Collisions cannot find a collision?
+If H(x) = H(y), then x = y
+
+high min-entropy: very spreadout
+
+If r is chosen from a pd that has a high min-entropy, then given H(r|x), it is infeasible to find x 
+
