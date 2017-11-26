@@ -8,3 +8,94 @@ high min-entropy: very spreadout
 
 If r is chosen from a pd that has a high min-entropy, then given H(r|x), it is infeasible to find x 
 
+Section 1.2
+
+Hash pointer
+	Pointer to where some info is storedHash for the info 
+
+if we have a has pointer, we can 
+	Ask to get the info back
+	verify that it hasn't changed
+
+build data structures with hash pointers
+
+blockchain => 
+
+LinkedList where prev is the hash of the pointer data and also points to the previous data
+
+tamper-evident log
+
+The hash of the data also includes the hash of the pointer to the previous block
+
+Binary tree = Merkle tree:
+If someone wants to prove to us that this block is in the merkel tree, the only need to show O(log (n)) items with the correct hash, only that branch of the tree
+
+Advantages of merkle trees:
+Tree holds many items
+	but just need to remember the root hash
+Can verify membership in O(log n) time/ space
+
+Variant: sorted Markle tree
+	can verify NON-membership in O(log n)
+	show items before, after teh missing one
+
+Can use hashpointers in any pointer-based data structure that has no cycles
+
+
+*** DIGITAL SIGNATURES
+
+Only you can make your signature
+	Anyone who sees your signature can say whether it is valid or not
+	SIgnature is tied to a particular document
+	cannot be cut and pasted into another document
+
+How do we build this? 
+	generateKeys (randomized), sign (randomized), verify (deterministic)
+
+Requirements for signatures
+	valid signatures verify
+	cannot forge signatures
+		adversary who knows pk, get to see signatures on mesages of his choice
+		cannot produce a verifiable signature on another message
+
+We need a good source of randomness
+Limit on the message size you can sign, therefore use the hash of the message. hash functions are "collision free"
+
+Bitcoin uses ECDSA - elliptic curve digital signature algorithm
+good randomness is essential - you would probably leaked your private key
+
+What keys ar eused for verifying a signature: public key
+
+*** PUBLIC KEYS AS IDENTITIES
+
+public key == an identity (actor in the system)
+
+	if you see a sig such athat you can verify with someone's public key
+	you can think of that public key saying that message
+
+How to make a new identity:
+	Create a new random key pair (sk, pk)
+	pk is the public name you can use, you will use the hash of it
+	sk, secret key, is the information that let's you speak fo the identity
+
+Decentralized identity management:
+	Anybody can make a new identity as many as you want
+
+There is no centralized point of control. This identity is called addresses in bitcoin jargon, the hash of a public key that someone made up. 
+
+How private is this? It's complicated. The addresses are not connected to your real world identity. But the bad news is that if that address is making a series of statements of time. They can connect the dots over time and make inferences. 
+
+Lecture 1.5
+
+Crytocurrency Challenge:
+	- Double-spending attack
+
+Soltion:
+	Publish history of all transactions that have happened (block-chain)
+	Allows to detect double spending
+	2 kinds:
+	1) Create coin - multiple coins can be created
+	2) Pay Coind: Transaction consumes and destroys some coins, and creates new coins of the same total value
+	But problem: The owner of all the coins - centralization
+
+Can we get rid of the centralized figure that operates like above and doesn't have a centralized figure
