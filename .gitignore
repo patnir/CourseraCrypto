@@ -1,4 +1,5 @@
 .DS_Store
-assignment1/.idea/*
-assignment2/.idea/*
-assignment3/.idea/*
+.idea/*
+assignment_zip_folders/*
+CourseraCrypto.iml
+*.iml

@@ -99,3 +99,40 @@ Soltion:
 	But problem: The owner of all the coins - centralization
 
 Can we get rid of the centralized figure that operates like above and doesn't have a centralized figure
+
+
+Assignment notes:
+
+1) Process transactions
+2) produce the ledger
+
+Organize transactions into time periods or blocks. 
+In each block:
+	1) Receive a list of transactions
+	2) Validate the transaction ge receives
+	3) Publish a list of validated transactions
+
+A transaction can reference another transaction in the same block
+More than one transaction in a single block may spend the same output - double-spend, and hence invalid
+Transactions cannot be validated in isolation
+
+Transaction input consists of the hash of the transaction that contains 
+- the corresponding output, 
+- the index of the output in that transaction and 
+- a digital signature
+
+getRawDataToSign(int index) 
+verifySignature() 
+
+A transaction consists of:
+- list of inputs
+- list of outputs
+- unique ID
+
+
+Review: 
+Properties from hashing functions
+	1) Collision free
+	2) Hiding - difficult to find the original string from the hash
+	3) 
+

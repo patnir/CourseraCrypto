@@ -1,0 +1,25 @@
+How Bitcoin Achieves Decentralization:
+
+1) Who maintains the ledger?
+2) Who has authority over which transactions are vlid?
+3) Who creates new bitcoins?
+4) Who determines how the rules of the system change?
+5) How do bitcoins acquire exchange value?
+
+Beyond the protocol:
+Exchanges, wallet software, service provides
+
+Aspects of decentralization in Bitcoin:
+Peer-to-peer network: open to anyone, low barrier to entry
+
+Mining: open to anyone, but inevitable concentration of power often seen as undesirable
+
+Updates to software: core developers trusted by community, have great power
+
+Which factors make Distributed consensus hard:
+1) Nodes may crash
+2) Nodes may be taken over by malware
+3) There is latency on the network
+
+Distributed consensus:
+
