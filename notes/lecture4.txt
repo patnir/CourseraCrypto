@@ -1,0 +1,171 @@
+Lecture 4: How to Store and Use Bitcoins
+
+4.1: Simple local storage
+	Top spend a bitcoin, you need to know: 
+	- Some information from the public blockchain, 
+	- The owner's secret signing key
+
+So it's all about key management
+Goals:
+	availability: You can spend your coins
+	Security: noby else can spend your coins
+	Convenience
+
+Simplest approach: Store a key in a file on your computer or phone. Pretty bad for availibity and low security, just as secure as your device
+
+Wallet software:
+	Keeps track of your coins, provides nice user interface
+	Nice trick: use a separate address/ key for each coin
+		- benefits privacy (looks like separate owners)
+		- wallet can do teh bookkeeping, user needn't know
+
+Econding address
+	Encode as text string: base 58 notation
+	or use OR code
+
+4.2: Hot and Cold Storage
+	Separate keys: online (convenient but risky) and offline (archival and safer)
+	How to move coin between the sides
+
+
+Hot Storage: 
+	Contains cold storage addresses, so that the hot storage can send it coins at any time
+	Contains hot secret keys as well
+
+Problem: 
+	Want to sue a new address (and key) for each coin sent to cold
+	But how can hot wallent learn new addressed if cold wallet is offline
+
+Awkaward solution: Generate a big batch of addresses/ keys, transfer to hot beforehand
+
+Better solution: Hierarchical wallet
+	generateKeysHier: address gen info, private key gen info
+	address gen info: genAddr, ith address
+	private key gen info: gen key, ith key
+
+Different ways to store cold information
+	- Info stored in device and store it in a safe
+	- "Brain wallet": encrypt info under passphrase that user remebers, subject to same password attacks
+	- Paper wallet: print information on paper, lock up the paper
+	- In "tamperproof" device: device will sign things for you, but won't divulge (make known) keys
+
+4.3: Splitting and sharing keys
+
+Single point of failure. 
+Secret sharing: 
+	idea: split into N pieces, such that
+	- given any K pieces, can reconstruct the secret 
+	- given fewer than K pieces, don't learn anything
+
+	Good: store shares separately, adversary must compromise several shares to get teh key
+
+	Bad: To sign, need to bring shares together, reconstruct the key
+
+Multi-sign
+	Lets you keep shares apart, approve transaction witout reconstructing key at any point
+
+Lecture 4.4: Online Wallets and Exchanges
+	Online wallet: Runs in the cloud
+		Convenient: nothing to install, works on multiple devices
+		but security worries: vulnerable if site is malicious or compromised
+		ideally, site is run be security professionals
+	Bitcoin exchanges: accept deposits of bitcoins and fiat currencies
+		promise to pay back on demand
+		Lets customers: 
+		- make and receive bitcoin payments
+		buy/sell bitcoins for fiat currency
+		typically, match up BTC buyer with BTC seller
+	What happens when you buy BTC:
+		no BTC transaction appears ont eh blockchain
+		exhange is making a different promise now 
+		The exchange to need to happen on the blockchain, no actualy movement of money
+		Pro: connects BTC economy to fiat currency economy, easy to transfer vaule back and forth
+		Con: rist, same kinds of risks as banks
+			1) Risk of bank-run: Even if the bank is solvent, the bank might not be able to give it to you
+			2) Owner ponzi scheme
+			3) Risk of cyber attack, penetrate exchange 
+	Bank regulation: 
+		Minimum reserve requriement
+		Regulates the types of investment and money management behaviors
+		Government: Deposit insurance
+		Government: Load money during bank-run
+
+	Proof of reserve: 
+		Bitcoin exchange can prove it has fractional reserve can be 100%. 
+		Prove how much reserve you're holding:
+			publish valid payment to self of that amount
+			Sign a challenge string with the same private key
+		Prove how many demand deposits you hold
+			Each hash pointer (node) in a merkle tree has information on the total value of it's children
+			Exchange should build a tree like this
+
+Proof of reserve
+	Prove that you have at least X amount of reserve currency
+	Prove that customers have at most Y amount deposited
+	So reserve fraction >= X/Y
+
+Lecture 4.5: Payment services
+	Merchant accepts BTC
+	customer wants: to pay with Bitcoin
+	merchant wantS: 
+		- to receive dollars
+		- simple deployment
+		- low risk		
+	The mechanism works: 
+		1) Pay with BTC button <transID, amount>
+		2) clocked <transID, amount>
+		3) payment interaction from payment service to user
+		4) payment service tells merchant looks ok
+		5) confirms transition
+		6) then the merchant can provide his service
+
+	Payment service absorbs all of the risks: security and exchange rate
+	needs to exchange Bitcoin for dollars, in volume
+
+Lecture 4.6: Transaction fees
+	How transaction fees are set in Bitcoin today
+	Recall: fee: value of inputs - value of outputs of a transaction
+		fee goes to miner who records teh transactions
+	Costs resources for 
+		peers to relay your transaction
+		miner to record your transaction
+	Transaction fee compensates for come of these costs
+	Generally, higer fee means transactions will be forwarded and recoded faster
+
+	Current consensus fees: 
+	No fee if: 
+		tx less than 1000 bytes in size
+		all outputs are 0.01 BTC or larger, and 
+		priority is large enough
+	Priority = sum of inputAge * inputValue / transSize
+	Approximate transaction size: 148Ninputs + 34 Noutputs + 10 (around 400-500 bytes)
+
+	Most miners enforce the consensus fee structure
+	If you don't pay teh consensus fee, your transactino will take longer to be recoded
+	Miners prioritize transactino based on fees and the priority formula
+
+Lecture 4.7: Currency Exchange Markets
+	What the market looks like?
+	It operates in many in many ways like Fiat Market 
+	Basic market dynamics
+		market matches buyer and seller
+		large, liquid market reaches a consensus prive
+		prive set by supply of BTC and demand for BTC
+	Supply of Bitcoins?
+		supply=coins in circulation (+demand deposits)
+		coins in circulation: fixed number
+		when to include demand deposits?
+			when they can actually be sol in teh market
+	Demand bitcoins
+		BTC demnaded to mediate fiat-currency trasnactions
+		BTC demanded as an investment
+
+T = total transaction value mediated bia BTC ($/sec)
+D = duration that BTC is needed by a transaction (sec)
+S = supply of BTC (not including BTC hel as long-term investments)
+
+S/D = bitcoins become avaialbl per second
+T/P = bitcoins needed per second
+P = TD/S
+
+If D and S remain constant, the price of bitcoin is largely dependent on T, the total transaction brought about bia BTC
